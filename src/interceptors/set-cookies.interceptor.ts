@@ -8,7 +8,6 @@ import {
   ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
-import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -22,9 +21,7 @@ export class SetCookiesInterceptor implements NestInterceptor {
     let res: Response;
     let req;
     if (type === 'graphql') {
-      const gqlCtx = GqlExecutionContext.create(context).getContext();
-      req = gqlCtx.req;
-      res = gqlCtx.res;
+      throw new Error('graphql not supported');
     } else if (type === 'http') {
       req = context.switchToHttp().getRequest();
       res = context.switchToHttp().getResponse();

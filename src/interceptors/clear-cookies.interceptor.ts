@@ -5,7 +5,6 @@ import {
   ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
-import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { Observable } from 'rxjs';
 import { Response } from 'express';
@@ -18,8 +17,7 @@ export class ClearCookiesInterceptor implements NestInterceptor {
     let res: Response;
 
     if (type === 'graphql') {
-      const gqlCtx = GqlExecutionContext.create(context).getContext();
-      res = gqlCtx.res;
+      throw new Error('graphql not supported');
     } else if (type === 'http') {
       res = context.switchToHttp().getResponse();
     } else {
